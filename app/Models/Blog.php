@@ -11,8 +11,17 @@ class Blog extends Model
     protected $fillable = [
        'title',
        'description',
-       'user_id'
+       'user_id',
+       'category_id',
+       'is_published',
+       'thumbnail',
+       'slug'
     ];
+
+    protected $casts = [
+        'is_published' => 'boolean'
+    ];
+
     public function author() {
         return $this->belongsTo( User::class,'user_id');
     }

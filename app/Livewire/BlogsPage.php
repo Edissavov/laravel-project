@@ -16,10 +16,18 @@ class BlogsPage extends Component
     
     public function mount(){
         $this->blogs = Blog::all();
-        $this->categories = Category::all();
+        $this->categories = Category::whereHas('blogs', function($query) {
+            $query->where('is_published', true);
+        })
+        ->get();
     }
+    
 
+    // public function showBlogs($id){
+    //     $this->blogs=Category::find($id)->blogs;
+    // }
 
+    
     public function filterBlogsByCategoryId(Category $category){
         $this->blogs = $category->blogs; 
     }
